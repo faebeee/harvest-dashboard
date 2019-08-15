@@ -112,21 +112,20 @@ export function timeByDay(grid, x, y, w, h, from, to, excludedClients) {
 }
 
 export function weekTotal(grid, x, y, w, h, from, to, excludedClients) {
+    var lcd = grid.set(y, x, h, w, contrib.lcd,
+        {
+            segmentWidth: 0.06 // how wide are the segments in % so 50% = 0.5
+            , segmentInterval: 0.11 // spacing between the segments in % so 50% = 0.550% = 0.5
+            , strokeWidth: 0.11 // spacing between the segments in % so 50% = 0.5
+            , elements: 4 // how many elements in the display. or how many characters can be displayed.
+            , elementSpacing: 4 // spacing between each element
+            , elementPadding: 2 // how far away from the edges to put the elements
+            , color: 'white' // color for the segments
+            , label: 'Hours this week'
+        });
+
     return loadTotalOfWeek(from, to, excludedClients)
         .then((hours) => {
-            var lcd = grid.set(y, x, h, w, contrib.lcd,
-                {
-                    segmentWidth: 0.06 // how wide are the segments in % so 50% = 0.5
-                    , segmentInterval: 0.11 // spacing between the segments in % so 50% = 0.550% = 0.5
-                    , strokeWidth: 0.11 // spacing between the segments in % so 50% = 0.5
-                    , elements: 4 // how many elements in the display. or how many characters can be displayed.
-                    , display: 321 // what should be displayed before first call to setDisplay
-                    , elementSpacing: 4 // spacing between each element
-                    , elementPadding: 2 // how far away from the edges to put the elements
-                    , color: 'white' // color for the segments
-                    , label: 'Hours this week'
-                });
-
             lcd.setDisplay(hours + 'H'); // will display "23G"
         });
 }

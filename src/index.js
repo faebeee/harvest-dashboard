@@ -12,7 +12,7 @@ const screen = blessed.screen();
 const grid = new contrib.grid({ rows: 8, cols: 8, screen: screen });
 const markdown = grid.set(0, 0, 1, 6, contrib.markdown);
 markdown.setMarkdown(`# Harvest Dashboard \n showing data from ${ from } to ${ to }`);
-const excludedClients = [...args.ignore.split(',')];
+const excludedClients = [...(args.ignore || '').split(',')];
 
 Promise.all([
     weekTotal(grid, 6, 0, 2, 1, from, to, excludedClients),
@@ -20,9 +20,13 @@ Promise.all([
     timeByClient(grid, 4, 1, 4, 3, from, to, excludedClients),
     timeByProject(grid, 4, 4, 4, 4, from, to, excludedClients),
     timeByDay(grid, 0, 4, 4, 4, from, to, excludedClients),
-]).then(() => {
+]);
+
+screen.render();
+
+setInterval(() => {
     screen.render();
-});
+}, 2000);
 
 
 screen.key(['escape', 'q', 'C-c'], function(ch, key) {
