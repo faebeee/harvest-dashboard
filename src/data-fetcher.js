@@ -37,10 +37,13 @@ function sortEntries(time_entries) {
     })
 }
 
+/**
+ *
+ * @param {string} from
+ * @param {string} to
+ * @return {Promise<TimeEntry[]>}
+ */
 function getTimeEntries(from, to) {
-    if (HARVVEST_CACHE.has('time_entries')) {
-        return Promise.resolve({ time_entries: HARVVEST_CACHE.get('time_entries') });
-    }
     return harvest.timeEntries.list({
         from,
         to
@@ -51,6 +54,13 @@ function getTimeEntries(from, to) {
         })
 }
 
+/**
+ *
+ * @param from
+ * @param to
+ * @param excludedClients
+ * @return {Promise<TimeEntry>}
+ */
 export function loadTimeByTask(from, to, excludedClients) {
     return getTimeEntries(from, to)
         .then((time_entries) => filterEntries(time_entries, excludedClients))
@@ -58,6 +68,13 @@ export function loadTimeByTask(from, to, excludedClients) {
         .then((time_entries) => getTimeByTask(time_entries))
 }
 
+/**
+ *
+ * @param from
+ * @param to
+ * @param excludedClients
+ * @return {Promise<TimeEntry>}
+ */
 export function loadTimeByClient(from, to, excludedClients) {
     return getTimeEntries(from, to)
         .then((time_entries) => filterEntries(time_entries, excludedClients))
@@ -65,6 +82,13 @@ export function loadTimeByClient(from, to, excludedClients) {
         .then((time_entries) => getTimeByClient(time_entries))
 }
 
+/**
+ *
+ * @param from
+ * @param to
+ * @param excludedClients
+ * @return {Promise<TimeEntry>}
+ */
 export function loadTimeByDay(from, to, excludedClients) {
     return getTimeEntries(from, to)
         .then((time_entries) => filterEntries(time_entries, excludedClients))
@@ -72,6 +96,13 @@ export function loadTimeByDay(from, to, excludedClients) {
         .then((time_entries) => getTimeByDay(time_entries))
 }
 
+/**
+ *
+ * @param from
+ * @param to
+ * @param excludedClients
+ * @return {Promise<TimeEntry>}
+ */
 export function loadTimeByProject(from, to, excludedClients) {
     return getTimeEntries(from, to)
         .then((time_entries) => filterEntries(time_entries, excludedClients))
@@ -79,6 +110,13 @@ export function loadTimeByProject(from, to, excludedClients) {
         .then((time_entries) => getTimeByProject(time_entries))
 }
 
+/**
+ *
+ * @param from
+ * @param to
+ * @param excludedClients
+ * @return {Promise<number>}
+ */
 export function loadTotalOfWeek(from, to, excludedClients) {
     return getTimeEntries(from, to)
         .then((time_entries) => filterEntries(time_entries, excludedClients))
