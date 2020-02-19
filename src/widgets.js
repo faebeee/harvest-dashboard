@@ -154,7 +154,7 @@ export function timeByDay(grid, x, y, w, h, from, to, excludedClients) {
         const bar = grid.set(y, x, h, w, contrib.bar,
             {
                 label: 'Hours by day'
-                , barWidth: 12
+                , barWidth: 6
                 , barSpacing: 0
                 , maxHeight: 12
             });
@@ -167,7 +167,8 @@ export function timeByDay(grid, x, y, w, h, from, to, excludedClients) {
             const titles = [];
 
             result.forEach((val, key) => {
-                titles.push(key.slice(0, 30));
+                const date = new Date(key);
+                titles.push(`${(date.getDate() + 1).toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}`);
                 data.push(round(val));
             });
 
@@ -190,7 +191,7 @@ export function timeByDay(grid, x, y, w, h, from, to, excludedClients) {
  * @param excludedClients
  * @return {Promise<number>}
  */
-export function weekTotal(grid, x, y, w, h, from, to, excludedClients) {
+export function hoursTotal(grid, x, y, w, h, from, to, excludedClients) {
     if (!widgets.has(TEXT_WEEKLY)) {
         const lcd = grid.set(y, x, h, w, contrib.lcd,
             {
@@ -201,7 +202,7 @@ export function weekTotal(grid, x, y, w, h, from, to, excludedClients) {
                 , elementSpacing: 4 // spacing between each element
                 , elementPadding: 2 // how far away from the edges to put the elements
                 , color: 'white' // color for the segments
-                , label: 'Hours this week'
+                , label: 'Hours'
             });
         widgets.set(TEXT_WEEKLY, lcd);
     }
