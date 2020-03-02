@@ -23,11 +23,13 @@ const excludedClients = [...(args.ignore || '').split(',')];
  */
 function loadData() {
     return Promise.all([
-        // weekTotal(grid, 6, 0, 2, 1, from, to, excludedClients),
         timeByTask(grid, 0, 0, 4, 4, from, to, excludedClients),
-        timeByClient(grid, 4, 0, 2, 4, from, to, excludedClients),
-        hoursTotal(grid, 6, 0, 2, 2, from, to, excludedClients),
+        timeByProject(grid, 4, 0, 2, 4, from, to, excludedClients),
+        
         timeByDay(grid, 0, 4, 8, 4, from, to, excludedClients),
+        
+        hoursTotal(grid, 6, 2, 2, 2, from, to, excludedClients),
+        timeByClient(grid, 6, 0, 2, 2, from, to, excludedClients),
     ]);
 }
 
