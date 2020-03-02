@@ -1,4 +1,5 @@
-#!/usr/bin/env
+#!/usr/bin/env node
+
 require('@babel/register')({});
 
 // Import the rest of our application.
