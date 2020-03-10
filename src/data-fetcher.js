@@ -9,8 +9,8 @@ const harvest = new Harvest({
     userAgent: 'Weekly Dashboard',
     concurrency: 1,
     auth: {
-        accessToken: process.env.ACCESS_TOKEN,
-        accountId: process.env.ACCOUNT_ID
+        accessToken: process.env.HARVEST_ACCESS_TOKEN,
+        accountId: process.env.HARVEST_ACCOUNT_ID
     }
 });
 
